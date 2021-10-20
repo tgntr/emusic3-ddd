@@ -9,9 +9,10 @@
     {
         public static IQueryable<TEntity> Sort<TEntity, TSortType>(
             this IQueryable<TEntity> queryable,
-            Sorter<TEntity, TSortType> sorter)
-        where TEntity : IAggregateRoot
-        where TSortType : Enumeration
+            Sorter<TEntity, TSortType> sorter
+        )
+            where TEntity : IAggregateRoot
+            where TSortType : Enumeration
         {
             if (sorter.OrderBy == OrderType.Descending)
             {
