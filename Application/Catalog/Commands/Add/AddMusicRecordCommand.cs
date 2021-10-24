@@ -39,7 +39,7 @@
 
                 if (await _inventoryDomainRepository.IsExistingRecord(recordInfo.Id))
                 {
-                    return "MusicRecord already exists";
+                    return "Record already exists";
                 }
 
                 var musicRecord = _musicRecordFactory
