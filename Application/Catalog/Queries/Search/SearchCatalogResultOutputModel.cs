@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SimpleMusicStore.Application.Catalog.Queries.Search
 {
-    public class SearchCatalogOutputModel
+    public class SearchCatalogResultOutputModel
         : IMapFrom<MusicRecord>, IMapFrom<Artist>, IMapFrom<Label>
     {
         public int Id { get; set; }

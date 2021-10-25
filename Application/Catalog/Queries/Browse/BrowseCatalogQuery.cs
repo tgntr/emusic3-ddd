@@ -23,7 +23,7 @@
         public DateTime? MaxReleaseDate { private get; set; }
         public string? SearchQuery { private get; set; }
         public bool? OnlyAvailable { private get; set; }
-        public MusicRecordSortType? SortBy { private get; set; }
+        public BrowseCatalogSortType? SortBy { private get; set; }
         public OrderType? OrderBy { private get; set; }
         internal Specification<MusicRecord> Specifications
             => new MusicRecordByAudioFormatSpecification(Format)
@@ -32,8 +32,8 @@
                 .And(new MusicRecordByReleaseDateRangeSpecification(MinReleaseDate, MaxReleaseDate))
                 .And(new MusicRecordByBrowseSearchQuerySpecification(SearchQuery))
                 .And(new MusicRecordOnlyAvailableSpecification(OnlyAvailable));
-        internal MusicRecordSorter Sorter
-            => new MusicRecordSorter(SortBy, OrderBy, SearchQuery);
+        internal BrowseCatalogSorter Sorter
+            => new BrowseCatalogSorter(SortBy, OrderBy);
 
         public class BrowseCatalogQueryHandler : IRequestHandler<BrowseCatalogQuery, IEnumerable<BrowseCatalogMusicRecordOutputModel>>
         {
