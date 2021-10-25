@@ -7,7 +7,7 @@
     using System;
     using System.Linq.Expressions;
 
-    public class ArtistLabelBySearchQuerySpecification : Specification<ArtistLabel<ArtistLabelException>>
+    public class ArtistLabelBySearchQuerySpecification : Specification<ArtistLabel<InvalidArtistLabelException>>
     {
         private readonly string _searchQuery;
 
@@ -18,7 +18,7 @@
 
         protected override bool Include => !string.IsNullOrEmpty(_searchQuery);
 
-        public override Expression<Func<ArtistLabel<ArtistLabelException>, bool>> Filter()
+        public override Expression<Func<ArtistLabel<InvalidArtistLabelException>, bool>> Filter()
         {
             return artistLabel => artistLabel.Name.Contains(_searchQuery, CatalogConstants.IGNORE_CASE);
 

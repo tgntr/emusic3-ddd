@@ -24,15 +24,6 @@
         public bool? OnlyAvailable { private get; set; }
         public BrowseCatalogSortType? SortBy { private get; set; }
         public OrderType? OrderBy { private get; set; }
-        internal Specification<MusicRecord> Specifications
-            => new MusicRecordByAudioFormatSpecification(Format)
-                .And(new MusicRecordByGenreSpecification(Genres, Styles))
-                .And(new MusicRecordByPriceRangeSpecification(MinPrice, MaxPrice))
-                .And(new MusicRecordByReleaseDateRangeSpecification(MinReleaseDate, MaxReleaseDate))
-                .And(new MusicRecordByBrowseSearchQuerySpecification(SearchQuery))
-                .And(new MusicRecordOnlyAvailableSpecification(OnlyAvailable));
-        internal BrowseCatalogSorter Sorter
-            => new BrowseCatalogSorter(SortBy, OrderBy);
 
         public class BrowseCatalogQueryHandler : IRequestHandler<BrowseCatalogQuery, IEnumerable<BrowseCatalogMusicRecordOutputModel>>
         {
@@ -49,10 +40,24 @@
                 CancellationToken cancellationToken)
             {
                 return await _inventoryQueryRepository.BrowseMusicRecords(
-                    request.Specifications,
-                    request.Sorter,
+                    GetBrowseSpecification(request),
+                    GetBrowseSorter(request),
                     request.Page,
                     cancellationToken);
+            }
+
+            private Specification<MusicRecord> GetBrowseSpecification(BrowseCatalogQuery request)
+            {
+                return new MusicRecordByAudioFormatSpecification(request.Format)
+                    .And(new MusicRecordByGenreSpecification(request.Genres, request.Styles))
+                    .And(new MusicRecordByPriceRangeSpecification(request.MinPrice, request.MaxPrice))
+                    .And(new MusicRecordByReleaseDateRangeSpecification(request.MinReleaseDate, request.MaxReleaseDate))
+                    .And(new MusicRecordByBrowseSearchQuerySpecification(request.SearchQuery))
+                    .And(new MusicRecordOnlyAvailableSpecification(request.OnlyAvailable));
+            }
+            private BrowseCatalogSorter GetBrowseSorter(BrowseCatalogQuery request)
+            {
+                return new BrowseCatalogSorter(request.SortBy, request.OrderBy);
             }
         }
     }

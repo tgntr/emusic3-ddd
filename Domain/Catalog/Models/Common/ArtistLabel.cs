@@ -3,8 +3,9 @@ using SimpleMusicStore.Domain.Common.Models;
 
 namespace SimpleMusicStore.Domain.Catalog.Models.Common
 {
+    //todo research inheriting classes to throw different exceptions
     public abstract class ArtistLabel<TException> : Entity<int>
-        where TException : ArtistLabelException, new()
+        where TException : InvalidArtistLabelException, new()
     {
         protected ArtistLabel(int id, string name, string imageUrl)
         {

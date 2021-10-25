@@ -10,13 +10,8 @@
 
     public class SearchCatalogQuery : PagedQuery, IRequest<IEnumerable<SearchCatalogResultOutputModel>>
     {
+        //todo check if response should be Result when Validator is available
         public string SearchQuery { get; set; } = default!;
-        public MusicRecordBySearchQuerySpecification MusicRecordSpecification
-            => new MusicRecordBySearchQuerySpecification(SearchQuery);
-        public ArtistLabelBySearchQuerySpecification ArtistLabelSpecification
-            => new ArtistLabelBySearchQuerySpecification(SearchQuery);
-        public SearchCatalogSorter Sorter
-            => new SearchCatalogSorter(SearchQuery);
 
         public class SearchCatalogQueryHandler : IRequestHandler<SearchCatalogQuery, IEnumerable<SearchCatalogResultOutputModel>>
         {
@@ -32,9 +27,9 @@
                 SearchCatalogQuery request,
                 CancellationToken cancellationToken)
             {
-                var musicRecords = _inventoryQueryRepository.SearchMusicRecords(request.MusicRecordSpecification, cancellationToken);
-                var artists = _inventoryQueryRepository.SearchArtists(request.ArtistLabelSpecification, cancellationToken);
-                var labels = _inventoryQueryRepository.SearchLabels(request.ArtistLabelSpecification, cancellationToken);
+                var musicRecords = _inventoryQueryRepository.SearchMusicRecords(GetSearchMusicRecordSpecification(request), cancellationToken);
+                var artists = _inventoryQueryRepository.SearchArtists(GetSearchArtistLabelSpecification(request), cancellationToken);
+                var labels = _inventoryQueryRepository.SearchLabels(GetSearchArtistLabelSpecification(request), cancellationToken);
                 //todo verify this is good approach
                 await Task.WhenAll(musicRecords, artists, labels);
 
@@ -43,9 +38,18 @@
                     .Concat(await musicRecords)
                     .Concat(await artists)
                     .Concat(await labels)
-                    .OrderByDescending(request.Sorter.Sort())
+                    .OrderByDescending(GetSearchSorter(request).Sort())
                     .Take(10);
             }
+
+            private MusicRecordBySearchQuerySpecification GetSearchMusicRecordSpecification(SearchCatalogQuery request)
+                => new MusicRecordBySearchQuerySpecification(request.SearchQuery);
+
+            private ArtistLabelBySearchQuerySpecification GetSearchArtistLabelSpecification(SearchCatalogQuery request)
+                => new ArtistLabelBySearchQuerySpecification(request.SearchQuery);
+
+            public SearchCatalogSorter GetSearchSorter(SearchCatalogQuery request)
+                => new SearchCatalogSorter(request.SearchQuery);
         }
     }
 }

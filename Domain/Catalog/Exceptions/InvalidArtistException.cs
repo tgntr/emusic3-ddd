@@ -2,7 +2,7 @@
 {
     using Common;
 
-    public class InvalidArtistException : ArtistLabelException
+    public class InvalidArtistException : InvalidArtistLabelException
     {
         public InvalidArtistException()
         {

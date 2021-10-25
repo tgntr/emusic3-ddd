@@ -2,7 +2,7 @@
 
 namespace SimpleMusicStore.Domain.Catalog.Exceptions.Common
 {
-    public class ArtistLabelException : BaseDomainException
+    public class InvalidArtistLabelException : BaseDomainException
     {
     }
 }
