@@ -4,7 +4,6 @@
     using SimpleMusicStore.Domain.Catalog.Models;
     using SimpleMusicStore.Domain.Common.Models;
     using System;
-    using System.Linq;
     using System.Linq.Expressions;
 
     public class BrowseCatalogSorter : Sorter<MusicRecord, BrowseCatalogSortType>

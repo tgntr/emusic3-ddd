@@ -1,4 +1,4 @@
-﻿namespace SimpleMusicStore.Application.Catalog.Queries.Browse
+﻿namespace SimpleMusicStore.Application.Catalog.Queries.Search
 {
     using FluentValidation;
     using SimpleMusicStore.Domain.Catalog;

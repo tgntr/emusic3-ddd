@@ -38,20 +38,20 @@
             switch (exception)
             {
                 case ModelValidationException modelValidationException:
-                    code = HttpStatusCode.BadRequest;
-                    result = SerializeObject(new
-                    {
-                        ValidationDetails = true,
-                        modelValidationException.Errors
-                    });
-                    break;
+                code = HttpStatusCode.BadRequest;
+                result = SerializeObject(new
+                {
+                    ValidationDetails = true,
+                    modelValidationException.Errors
+                });
+                break;
                 case NullReferenceException _:
-                    code = HttpStatusCode.BadRequest;
-                    result = SerializeObject(new[] { "Invalid request." });
-                    break;
+                code = HttpStatusCode.BadRequest;
+                result = SerializeObject(new[] { "Invalid request." });
+                break;
                 case NotFoundException _:
-                    code = HttpStatusCode.NotFound;
-                    break;
+                code = HttpStatusCode.NotFound;
+                break;
             }
 
             context.Response.ContentType = "application/json";

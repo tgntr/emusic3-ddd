@@ -1,9 +1,5 @@
 ﻿using SimpleMusicStore.Application.Common.Mapping;
 using SimpleMusicStore.Domain.Catalog.Models;
-using SimpleMusicStore.Domain.Catalog.Models.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SimpleMusicStore.Application.Catalog.Queries.Search
 {

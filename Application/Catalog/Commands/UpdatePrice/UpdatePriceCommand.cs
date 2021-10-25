@@ -2,10 +2,7 @@
 {
     using Common;
     using MediatR;
-    using SimpleMusicStore.Application.Catalog.Commands.Add.InformationProvider;
-    using SimpleMusicStore.Domain.Catalog.Factories;
     using SimpleMusicStore.Domain.Catalog.Repositories;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 

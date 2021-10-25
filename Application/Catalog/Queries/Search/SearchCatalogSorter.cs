@@ -1,6 +1,5 @@
-﻿namespace SimpleMusicStore.Application.Catalog.Queries.Common
+﻿namespace SimpleMusicStore.Application.Catalog.Queries.Search
 {
-    using SimpleMusicStore.Application.Catalog.Queries.Search;
     using SimpleMusicStore.Domain.Catalog;
     using System;
     using System.Linq;

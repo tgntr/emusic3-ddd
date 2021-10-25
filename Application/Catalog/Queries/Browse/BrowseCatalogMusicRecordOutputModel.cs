@@ -2,7 +2,6 @@
 using SimpleMusicStore.Domain.Catalog.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SimpleMusicStore.Application.Catalog.Queries.Browse
 {

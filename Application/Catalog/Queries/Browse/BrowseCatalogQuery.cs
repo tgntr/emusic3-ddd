@@ -1,6 +1,5 @@
 ﻿namespace SimpleMusicStore.Application.Catalog.Queries.Browse
 {
-    using Common;
     using MediatR;
     using SimpleMusicStore.Application.Common.Pagination;
     using SimpleMusicStore.Application.Common.Sorting;

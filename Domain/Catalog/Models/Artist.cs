@@ -2,7 +2,6 @@
 {
     using SimpleMusicStore.Domain.Catalog.Exceptions;
     using SimpleMusicStore.Domain.Catalog.Models.Common;
-    using SimpleMusicStore.Domain.Common.Models;
 
     public class Artist : ArtistLabel<InvalidArtistException>
     {

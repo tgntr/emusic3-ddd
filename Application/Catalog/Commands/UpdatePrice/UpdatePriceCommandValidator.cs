@@ -1,7 +1,6 @@
 ﻿namespace SimpleMusicStore.Application.Catalog.Commands.UpdatePrice
 {
     using FluentValidation;
-    using SimpleMusicStore.Application.Catalog.Commands.Add.InformationProvider;
     using SimpleMusicStore.Domain.Catalog;
 
     public class UpdatePriceCommandValidator : AbstractValidator<UpdatePriceCommand>

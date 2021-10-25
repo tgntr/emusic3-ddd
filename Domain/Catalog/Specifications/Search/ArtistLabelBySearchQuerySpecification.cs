@@ -3,10 +3,8 @@
 {
     using Common;
     using SimpleMusicStore.Domain.Catalog.Exceptions.Common;
-    using SimpleMusicStore.Domain.Catalog.Models;
     using SimpleMusicStore.Domain.Catalog.Models.Common;
     using System;
-    using System.Linq;
     using System.Linq.Expressions;
 
     public class ArtistLabelBySearchQuerySpecification : Specification<ArtistLabel<ArtistLabelException>>

@@ -1,15 +1,8 @@
-﻿namespace SimpleMusicStore.Application.Catalog.Queries.Browse
+﻿namespace SimpleMusicStore.Application.Catalog.Queries.Search
 {
-    using Common;
     using MediatR;
-    using SimpleMusicStore.Application.Catalog.Queries.Search;
     using SimpleMusicStore.Application.Common.Pagination;
-    using SimpleMusicStore.Application.Common.Sorting;
-    using SimpleMusicStore.Domain.Catalog.Models;
-    using SimpleMusicStore.Domain.Catalog.Specifications;
     using SimpleMusicStore.Domain.Catalog.Specifications.Search;
-    using SimpleMusicStore.Domain.Common;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;

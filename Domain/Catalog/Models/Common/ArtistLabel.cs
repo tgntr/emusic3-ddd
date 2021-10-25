@@ -1,9 +1,5 @@
 ﻿using SimpleMusicStore.Domain.Catalog.Exceptions.Common;
-using SimpleMusicStore.Domain.Common;
 using SimpleMusicStore.Domain.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SimpleMusicStore.Domain.Catalog.Models.Common
 {
