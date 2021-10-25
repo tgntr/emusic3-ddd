@@ -8,14 +8,22 @@
     using System.Threading;
     using System.Threading.Tasks;
     using SimpleMusicStore.Application.Catalog.Queries.Browse;
+    using SimpleMusicStore.Domain.Catalog.Specifications;
 
     public interface ICatalogQueryRepository : IQueryRepository<MusicRecord>
     {
-        Task<object> GetDetails(int id, CancellationToken cancellationToken = default);
+        Task<object> GetMusicRecordDetails(int id, CancellationToken cancellationToken = default);
+
         Task<object> GetBrowsingOptions(CancellationToken cancellationToken = default);
-        Task<IEnumerable<BrowseCatalogMusicRecordOutputModel>> Browse(
+
+        Task<IEnumerable<BrowseCatalogMusicRecordOutputModel>> BrowseMusicRecords(
                 Specification<MusicRecord> filterBy,
                 MusicRecordSorter sortBy,
+                int page,
+                CancellationToken cancellationToken = default);
+
+        Task<IEnumerable<object>> SearchMusicRecords(
+                MusicRecordBySearchQuerySpecification searchQuery,
                 int page,
                 CancellationToken cancellationToken = default);
     }

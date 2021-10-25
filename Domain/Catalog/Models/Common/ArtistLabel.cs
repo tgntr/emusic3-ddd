@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SimpleMusicStore.Domain.Catalog.Models.Common
 {
-    public abstract class ArtistLabel<TException> : ValueObject
+    public abstract class ArtistLabel<TException> : Entity<int>
         where TException : ArtistLabelException, new()
     {
         protected ArtistLabel(int id, string name, string imageUrl)
@@ -20,7 +20,6 @@ namespace SimpleMusicStore.Domain.Catalog.Models.Common
             ImageUrl = imageUrl;
         }
 
-        public int Id { get; set; }
         public string Name { get; } = default!;
         public string ImageUrl { get; } = default!;
 
