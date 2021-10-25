@@ -13,7 +13,7 @@
     {
         Task<object> GetDetails(int id, CancellationToken cancellationToken = default);
         Task<object> GetBrowsingOptions(CancellationToken cancellationToken = default);
-        Task<IEnumerable<BrowseCatalogMusicRecordOutputModel>> Search(
+        Task<IEnumerable<BrowseCatalogMusicRecordOutputModel>> Browse(
                 Specification<MusicRecord> filterBy,
                 MusicRecordSorter sortBy,
                 int page,

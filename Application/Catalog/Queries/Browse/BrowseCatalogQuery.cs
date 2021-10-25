@@ -55,7 +55,7 @@
                 BrowseCatalogQuery request,
                 CancellationToken cancellationToken)
             {
-                return await _inventoryQueryRepository.Search(
+                return await _inventoryQueryRepository.Browse(
                     request.GetSpecifications(),
                     request.GetSorter(),
                     request.Page,
