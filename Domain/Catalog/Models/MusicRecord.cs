@@ -11,6 +11,7 @@
     public class MusicRecord : Entity<int>, IAggregateRoot
     {
         private readonly ICollection<Price> _priceHistory;
+
         internal MusicRecord(
             int id,
             string title,
@@ -51,7 +52,7 @@
         public DateTime DateReleased { get; }
         public Genre Genre { get; }
         public AudioFormat AudioFormat { get; }
-        public decimal Price { get; private set; }
+        public Price Price { get; private set; } = default!;
         public IEnumerable<Track> Tracklist { get; }
         public string ImageUrl { get; }
         public bool IsActive { get; private set; }
@@ -87,9 +88,8 @@
 
         private void SetPrice(decimal price)
         {
-            ValidatePrice(price, nameof(Price));
             Price = price;
-            _priceHistory.Add(new Price(price));
+            _priceHistory.Add(Price);
         }
 
         private void ValidateId(int id, string propertyName)

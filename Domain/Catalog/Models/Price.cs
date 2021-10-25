@@ -6,20 +6,23 @@
 
     public class Price : ValueObject
     {
-        internal Price(decimal price)
+        internal Price(decimal value)
         {
-            ValidatePrice(price, nameof(Price));
-
-            Value = price;
+            ValidatePrice(value, nameof(Price));
+            Value = value;
             DateUpdated = DateTime.UtcNow;
         }
 
         public decimal Value { get; }
         public DateTime DateUpdated { get; }
 
-        private void ValidatePrice(decimal price, string propertyName)
+        public static implicit operator decimal(Price price) => price.Value;
+
+        public static implicit operator Price(decimal value) => new Price(value);
+
+        private void ValidatePrice(decimal value, string propertyName)
         {
-            Guard.AgainstOutOfRange<InvalidPriceException>(price, CatalogConstants.MIN_INT_VALUE, CatalogConstants.MAX_INT_VALUE, propertyName);
+            Guard.AgainstOutOfRange<InvalidPriceException>(value, CatalogConstants.MIN_PRICE, CatalogConstants.MAX_PRICE, propertyName);
         }
     }
 }

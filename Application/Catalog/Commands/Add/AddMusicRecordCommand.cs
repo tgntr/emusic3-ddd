@@ -12,7 +12,7 @@
     public class AddMusicRecordCommand : IRequest<Result<AddMusicRecordOutputModel>>
     {
         public string DiscogsUrl { get; set; } = default!;
-        public decimal Price { get; set; } = default!;
+        public decimal Price { get; set; }
         public bool IsActive { get; set; } = true;
 
         public class AddMusicRecordCommandHandler : IRequestHandler<AddMusicRecordCommand, Result<AddMusicRecordOutputModel>>
@@ -37,9 +37,9 @@
             {
                 var recordInfo = await _musicRecordInformationProvider.ExtractInformationFromUrl(request.DiscogsUrl);
 
-                if (await _inventoryDomainRepository.IsExistingRecord(recordInfo.Id))
+                if (await _inventoryDomainRepository.IsExistingMusicRecord(recordInfo.Id))
                 {
-                    return "Record already exists";
+                    return "Music record already exists.";
                 }
 
                 var musicRecord = _musicRecordFactory

@@ -15,7 +15,7 @@
 
             RuleFor(a => a.Price)
                 .NotNull()
-                .ExclusiveBetween(CatalogConstants.MIN_DECIMAL_VALUE, CatalogConstants.MAX_DECIMAL_VALUE);
+                .ExclusiveBetween(CatalogConstants.MIN_PRICE, CatalogConstants.MAX_PRICE);
         }
     }
 }

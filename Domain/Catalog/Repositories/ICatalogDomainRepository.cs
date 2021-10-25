@@ -7,7 +7,7 @@
 
     public interface ICatalogDomainRepository : IDomainRepository<MusicRecord>
     {
-        Task<MusicRecord> FindRecord(int id, CancellationToken cancellationToken = default);
-        Task<bool> IsExistingRecord(int id, CancellationToken cancellationToken = default);
+        Task<MusicRecord> FindMusicRecord(int id, CancellationToken cancellationToken = default);
+        Task<bool> IsExistingMusicRecord(int id, CancellationToken cancellationToken = default);
     }
 }

@@ -34,7 +34,7 @@
             Action act = () => musicRecord.UpdatePrice(invalidPrice);
 
             // Assert
-            act.Should().Throw<InvalidMusicRecordException>();
+            act.Should().Throw<InvalidPriceException>();
         }
     }
 }
