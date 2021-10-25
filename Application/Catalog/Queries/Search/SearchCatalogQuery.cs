@@ -1,55 +1,58 @@
 ﻿namespace SimpleMusicStore.Application.Catalog.Queries.Search
 {
     using MediatR;
-    using SimpleMusicStore.Application.Common.Pagination;
+    using SimpleMusicStore.Application.Common;
     using SimpleMusicStore.Domain.Catalog.Specifications.Search;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class SearchCatalogQuery : PagedQuery, IRequest<IEnumerable<SearchCatalogResultOutputModel>>
+    public class SearchCatalogQuery
+        : PagedQuery, IRequest<IEnumerable<SearchCatalogResultOutputModel>>
     {
-        //todo check if response should be Result when Validator is available
         public string SearchQuery { get; set; } = default!;
 
-        public class SearchCatalogQueryHandler : IRequestHandler<SearchCatalogQuery, IEnumerable<SearchCatalogResultOutputModel>>
+        internal MusicRecordBySearchQuerySpecification MusicRecordSpecification
+            => new MusicRecordBySearchQuerySpecification(SearchQuery);
+
+        internal ArtistLabelBySearchQuerySpecification ArtistLabelSpecification
+            => new ArtistLabelBySearchQuerySpecification(SearchQuery);
+
+        internal SearchCatalogSorter Sorter
+            => new SearchCatalogSorter(SearchQuery);
+    }
+
+    public class SearchCatalogQueryHandler
+        : IRequestHandler<SearchCatalogQuery, IEnumerable<SearchCatalogResultOutputModel>>
+    {
+        private readonly ICatalogQueryRepository _catalogQueryRepository;
+
+        public SearchCatalogQueryHandler(
+            ICatalogQueryRepository catalogQueryRepository)
         {
-            private readonly ICatalogQueryRepository _inventoryQueryRepository;
+            _catalogQueryRepository = catalogQueryRepository;
+        }
 
-            public SearchCatalogQueryHandler(
-                ICatalogQueryRepository inventoryQueryRepository)
-            {
-                _inventoryQueryRepository = inventoryQueryRepository;
-            }
+        public async Task<IEnumerable<SearchCatalogResultOutputModel>> Handle(
+            SearchCatalogQuery request,
+            CancellationToken cancellationToken)
+        {
+            var musicRecords = await _catalogQueryRepository
+                .SearchMusicRecords(request.MusicRecordSpecification, cancellationToken);
 
-            public async Task<IEnumerable<SearchCatalogResultOutputModel>> Handle(
-                SearchCatalogQuery request,
-                CancellationToken cancellationToken)
-            {
-                var musicRecords = _inventoryQueryRepository.SearchMusicRecords(GetSearchMusicRecordSpecification(request), cancellationToken);
-                var artists = _inventoryQueryRepository.SearchArtists(GetSearchArtistLabelSpecification(request), cancellationToken);
-                var labels = _inventoryQueryRepository.SearchLabels(GetSearchArtistLabelSpecification(request), cancellationToken);
-                //todo verify this is good approach
-                await Task.WhenAll(musicRecords, artists, labels);
+            var artists = await _catalogQueryRepository
+                .SearchArtists(request.ArtistLabelSpecification, cancellationToken);
 
-                //todo paging and cache
-                return new HashSet<SearchCatalogResultOutputModel>()
-                    .Concat(await musicRecords)
-                    .Concat(await artists)
-                    .Concat(await labels)
-                    .OrderByDescending(GetSearchSorter(request).Sort())
-                    .Take(10);
-            }
+            var labels = await _catalogQueryRepository
+                .SearchLabels(request.ArtistLabelSpecification, cancellationToken);
 
-            private MusicRecordBySearchQuerySpecification GetSearchMusicRecordSpecification(SearchCatalogQuery request)
-                => new MusicRecordBySearchQuerySpecification(request.SearchQuery);
-
-            private ArtistLabelBySearchQuerySpecification GetSearchArtistLabelSpecification(SearchCatalogQuery request)
-                => new ArtistLabelBySearchQuerySpecification(request.SearchQuery);
-
-            public SearchCatalogSorter GetSearchSorter(SearchCatalogQuery request)
-                => new SearchCatalogSorter(request.SearchQuery);
+            //todo paging and cache
+            return musicRecords
+                .Concat(artists)
+                .Concat(labels)
+                .OrderByDescending(request.Sorter.Sort())
+                .Take(10);
         }
     }
 }

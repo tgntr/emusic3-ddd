@@ -8,7 +8,7 @@
     public static class QueryableExtensions
     {
         public static IQueryable<TEntity> Sort<TEntity, TSortType>(
-            this IQueryable<TEntity> queryable,
+            this IQueryable<TEntity> query,
             Sorter<TEntity, TSortType> sorter
         )
             where TEntity : IAggregateRoot
@@ -16,12 +16,21 @@
         {
             if (sorter.OrderBy == OrderType.Descending)
             {
-                return queryable.OrderByDescending(sorter.Sort());
+                return query.OrderByDescending(sorter.Sort());
             }
             else
             {
-                return queryable.OrderBy(sorter.Sort());
+                return query.OrderBy(sorter.Sort());
             }
+        }
+
+        public static IQueryable<TEntity> ToPage<TEntity>(this IQueryable<TEntity> query, int page)
+        {
+            const int PAGE_SIZE = 24;
+
+            var skip = (page - 1) * PAGE_SIZE;
+
+            return query.Skip(skip).Take(PAGE_SIZE);
         }
     }
 }

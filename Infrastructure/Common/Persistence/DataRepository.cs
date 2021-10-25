@@ -9,19 +9,19 @@
         where TDbContext : IDbContext
         where TEntity : class, IAggregateRoot
     {
-        protected DataRepository(TDbContext db) => this.Data = db;
+        protected readonly TDbContext _dbContext;
+        protected readonly IQueryable<TEntity> _dbSet;
 
-        protected TDbContext Data { get; }
-
-        protected IQueryable<TEntity> All() => this.Data.Set<TEntity>();
-
-        public async Task Save(
-            TEntity entity,
-            CancellationToken cancellationToken = default)
+        protected DataRepository(TDbContext db)
         {
-            this.Data.Update(entity);
+            _dbContext = db;
+            _dbSet = db.Set<TEntity>();
+        }
 
-            await this.Data.SaveChangesAsync(cancellationToken);
+        public Task Save(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            _dbContext.Update(entity);
+            return _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

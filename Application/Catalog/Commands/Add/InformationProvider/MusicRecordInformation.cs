@@ -3,6 +3,13 @@ using System.Linq;
 
 namespace SimpleMusicStore.Application.Catalog.Commands.Add.InformationProvider
 {
+    public abstract class GeneralInformation
+    {
+        public int Id { get; private set; }
+        public IEnumerable<ImageInformation> Images { private get; set; } = default!;
+        public string ImageUrl => Images.FirstOrDefault()?.Uri ?? MusicRecordInformationConstants.DEFAULT_IMAGE;
+    }
+
     public class MusicRecordInformation : GeneralInformation
     {
         //todo test private set
@@ -21,13 +28,6 @@ namespace SimpleMusicStore.Application.Catalog.Commands.Add.InformationProvider
     public class ArtistLabelInformation : GeneralInformation
     {
         public string Name { get; private set; } = default!;
-    }
-
-    public abstract class GeneralInformation
-    {
-        public int Id { get; private set; }
-        public IEnumerable<ImageInformation> Images { private get; set; } = default!;
-        public string ImageUrl => Images.FirstOrDefault()?.Uri ?? MusicRecordInformationConstants.DEFAULT_IMAGE;
     }
 
     public class FormatInformation

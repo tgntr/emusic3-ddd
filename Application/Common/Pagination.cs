@@ -1,17 +1,18 @@
 ﻿using FluentValidation;
+using System.Collections.Generic;
 
-namespace SimpleMusicStore.Application.Common.Pagination
+namespace SimpleMusicStore.Application.Common
 {
     public abstract class PagedQuery
     {
         public int Page { get; set; }
     }
 
-    public class QueryWithPaginationValidator : AbstractValidator<PagedQuery>
+    public class PagedQueryValidator : AbstractValidator<PagedQuery>
     {
         private const int MINIMUM_PAGE = 1;
 
-        public QueryWithPaginationValidator()
+        public PagedQueryValidator()
         {
             //todo validate total pages?
             RuleFor(a => a.Page)
