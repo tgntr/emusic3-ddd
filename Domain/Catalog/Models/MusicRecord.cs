@@ -118,11 +118,6 @@
             Guard.ForValidUrl<InvalidMusicRecordException>(url, propertyName);
         }
 
-        private void ValidatePrice(decimal price, string propertyName)
-        {
-            Guard.AgainstOutOfRange<InvalidMusicRecordException>(price, CatalogConstants.MIN_INT_VALUE, CatalogConstants.MAX_INT_VALUE, propertyName);
-        }
-
         private void ValidateQuantity(int quantity, string propertyName)
         {
             Guard.AgainstOutOfRange<InvalidMusicRecordException>(quantity, CatalogConstants.MIN_INT_VALUE, int.MaxValue, propertyName);
