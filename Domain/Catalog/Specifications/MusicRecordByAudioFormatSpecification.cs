@@ -7,9 +7,9 @@
 
     public class MusicRecordByAudioFormatSpecification : Specification<MusicRecord>
     {
-        private readonly AudioFormat _audioFormat;
+        private readonly AudioFormat? _audioFormat;
 
-        public MusicRecordByAudioFormatSpecification(AudioFormat audioFormat)
+        public MusicRecordByAudioFormatSpecification(AudioFormat? audioFormat)
         {
             _audioFormat = audioFormat;
         }

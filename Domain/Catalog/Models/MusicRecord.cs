@@ -57,8 +57,10 @@
         public bool IsActive { get; private set; }
         public DateTime DateAdded { get; }
         public IReadOnlyCollection<Price> PriceHistory => _priceHistory.ToList().AsReadOnly();
-        public int AvailableQuantity { get; private set; }
-        public bool IsAvailable => AvailableQuantity > 0;
+        private int StockCount { get; set; }
+        public int OrderCount { get; private set; }
+        public bool IsAvailable => StockCount > OrderCount;
+        public int AvailableQuantity => StockCount - OrderCount;
 
         public void UpdatePrice(decimal price)
         {
@@ -73,6 +75,14 @@
                 IsActive = isActive;
                 RaiseEvent(new MusicRecordStatusUpdated());
             }
+        }
+
+        public void UpdateAvailability(int stockCount, int orderCount)
+        {
+            ValidateQuantity(stockCount, nameof(StockCount));
+            ValidateQuantity(orderCount, nameof(OrderCount));
+            StockCount = stockCount;
+            OrderCount = orderCount;
         }
 
         private void SetPrice(decimal price)
@@ -110,6 +120,11 @@
         private void ValidatePrice(decimal price, string propertyName)
         {
             Guard.AgainstOutOfRange<InvalidMusicRecordException>(price, CatalogConstants.MIN_INT_VALUE, CatalogConstants.MAX_INT_VALUE, propertyName);
+        }
+
+        private void ValidateQuantity(int quantity, string propertyName)
+        {
+            Guard.AgainstOutOfRange<InvalidMusicRecordException>(quantity, CatalogConstants.MIN_INT_VALUE, int.MaxValue, propertyName);
         }
     }
 }

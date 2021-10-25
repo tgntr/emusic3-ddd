@@ -9,7 +9,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class AddMusicRecordCommand : EntityCommand<int>, IRequest<Result<AddMusicRecordOutputModel>>
+    public class AddMusicRecordCommand : IRequest<Result<AddMusicRecordOutputModel>>
     {
         public string DiscogsUrl { get; set; } = default!;
         public decimal Price { get; set; } = default!;

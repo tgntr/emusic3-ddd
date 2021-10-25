@@ -9,16 +9,18 @@
 
     public class MusicRecordByGenreSpecification : Specification<MusicRecord>
     {
-        private readonly IEnumerable<string> _genres;
-        private readonly IEnumerable<string> _styles;
+        private readonly IEnumerable<string>? _genres;
+        private readonly IEnumerable<string>? _styles;
 
-        public MusicRecordByGenreSpecification(IEnumerable<string> genres, IEnumerable<string> styles)
+        public MusicRecordByGenreSpecification(IEnumerable<string>? genres, IEnumerable<string>? styles)
         {
-            _genres = genres.Select(g => g.ToLower()) ?? new List<string>();
-            _styles = styles.Select(s => s.ToLower()) ?? new List<string>();
+            _genres = genres?.Select(g => g.ToLower());
+            _styles = styles?.Select(s => s.ToLower());
         }
 
-        protected override bool Include => _genres.Any() || _styles.Any();
+        protected override bool Include =>
+            (_genres != null && _genres.Any())
+            || (_styles != null && _styles.Any());
 
         public override Expression<Func<MusicRecord, bool>> Filter()
         {
