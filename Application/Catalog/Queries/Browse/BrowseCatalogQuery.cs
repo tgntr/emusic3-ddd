@@ -1,4 +1,4 @@
-﻿namespace SimpleMusicStore.Application.Catalog.Queries.Search
+﻿namespace SimpleMusicStore.Application.Catalog.Queries.Browse
 {
     using Common;
     using MediatR;
@@ -12,7 +12,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class SearchCatalogQuery : PagedQuery, IRequest<IEnumerable<SearchCatalogMusicRecordOutputModel>>
+    public class BrowseCatalogQuery : PagedQuery, IRequest<IEnumerable<BrowseCatalogMusicRecordOutputModel>>
     {
         public AudioFormat? Format { private get; set; }
         public IEnumerable<string>? Genres { private get; set; }
@@ -41,18 +41,18 @@
             return new MusicRecordSorter(SortBy, OrderBy, SearchQuery);
         }
 
-        public class SearchCatalogQueryHandler : IRequestHandler<SearchCatalogQuery, IEnumerable<SearchCatalogMusicRecordOutputModel>>
+        public class BrowseCatalogQueryHandler : IRequestHandler<BrowseCatalogQuery, IEnumerable<BrowseCatalogMusicRecordOutputModel>>
         {
             private readonly ICatalogQueryRepository _inventoryQueryRepository;
 
-            public SearchCatalogQueryHandler(
+            public BrowseCatalogQueryHandler(
                 ICatalogQueryRepository inventoryQueryRepository)
             {
                 _inventoryQueryRepository = inventoryQueryRepository;
             }
 
-            public async Task<IEnumerable<SearchCatalogMusicRecordOutputModel>> Handle(
-                SearchCatalogQuery request,
+            public async Task<IEnumerable<BrowseCatalogMusicRecordOutputModel>> Handle(
+                BrowseCatalogQuery request,
                 CancellationToken cancellationToken)
             {
                 return await _inventoryQueryRepository.Search(

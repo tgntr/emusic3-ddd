@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SimpleMusicStore.Application.Catalog.Queries.Search
+namespace SimpleMusicStore.Application.Catalog.Queries.Browse
 {
-    public class SearchCatalogMusicRecordOutputModel
+    public class BrowseCatalogMusicRecordOutputModel
     {
         public int Id { get; set; }
         public string Title { get; set; } = default!;
