@@ -12,7 +12,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class SearchCatalogQuery : QueryWithPagination, IRequest<IEnumerable<SearchCatalogMusicRecordOutputModel>>
+    public class SearchCatalogQuery : PagedQuery, IRequest<IEnumerable<SearchCatalogMusicRecordOutputModel>>
     {
         public AudioFormat? Format { private get; set; }
         public IEnumerable<string>? Genres { private get; set; }

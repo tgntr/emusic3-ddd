@@ -2,12 +2,12 @@
 
 namespace SimpleMusicStore.Application.Common.Pagination
 {
-    public abstract class QueryWithPagination
+    public abstract class PagedQuery
     {
         public int Page { get; set; }
     }
 
-    public class QueryWithPaginationValidator : AbstractValidator<QueryWithPagination>
+    public class QueryWithPaginationValidator : AbstractValidator<PagedQuery>
     {
         private const int MINIMUM_PAGE = 1;
 
