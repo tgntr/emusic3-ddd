@@ -1,4 +1,4 @@
-﻿namespace SimpleMusicStore.Domain.Catalog.Specifications
+﻿namespace SimpleMusicStore.Domain.Catalog.Specifications.Browse
 {
     using Common;
     using SimpleMusicStore.Domain.Catalog.Models;

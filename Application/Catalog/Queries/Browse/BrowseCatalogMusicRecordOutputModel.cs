@@ -1,10 +1,12 @@
-﻿using System;
+﻿using SimpleMusicStore.Application.Common.Mapping;
+using SimpleMusicStore.Domain.Catalog.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SimpleMusicStore.Application.Catalog.Queries.Browse
 {
-    public class BrowseCatalogMusicRecordOutputModel
+    public class BrowseCatalogMusicRecordOutputModel : IMapFrom<MusicRecord>
     {
         public int Id { get; set; }
         public string Title { get; set; } = default!;

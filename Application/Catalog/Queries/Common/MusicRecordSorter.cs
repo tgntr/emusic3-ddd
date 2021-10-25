@@ -32,27 +32,10 @@
             {
                 return musicRecord => musicRecord.Price;
             }
-            else if (SortBy == MusicRecordSortType.SearchQuery)
-            {
-                return musicRecord => SortBySearchQuery(musicRecord.Title, _searchQuery);
-            }
             else
             {
                 return musicRecord => musicRecord.OrderCount;
             }
-        }
-
-        private int SortBySearchQuery(string recordName, string searchQuery)
-        {
-            if (recordName.StartsWith(searchQuery, StringComparison.InvariantCultureIgnoreCase))
-                return searchQuery.Length * 3;
-            else if (recordName.Split().Any(n => n.StartsWith(searchQuery, StringComparison.InvariantCultureIgnoreCase)))
-                return searchQuery.Length * 2;
-            else if (recordName.Contains(searchQuery, StringComparison.InvariantCultureIgnoreCase))
-                //todo check why here 1 and below 2 instead opposite
-                return 1;
-            else
-                return 2;
         }
     }
 }

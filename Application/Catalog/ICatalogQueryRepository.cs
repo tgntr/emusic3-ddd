@@ -9,6 +9,7 @@
     using System.Threading.Tasks;
     using SimpleMusicStore.Application.Catalog.Queries.Browse;
     using SimpleMusicStore.Domain.Catalog.Specifications;
+    using SimpleMusicStore.Domain.Catalog.Specifications.Search;
 
     public interface ICatalogQueryRepository : IQueryRepository<MusicRecord>
     {

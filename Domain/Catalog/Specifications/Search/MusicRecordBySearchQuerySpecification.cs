@@ -1,4 +1,4 @@
-﻿namespace SimpleMusicStore.Domain.Catalog.Specifications
+﻿namespace SimpleMusicStore.Domain.Catalog.Specifications.Search
 
 {
     using Common;
@@ -21,10 +21,8 @@
         public override Expression<Func<MusicRecord, bool>> Filter()
         {
             return musicRecord =>
-                musicRecord.Title.Contains(_searchQuery, StringComparison.InvariantCultureIgnoreCase)
-                || musicRecord.Tracklist.Any(t => t.Title.Split().Any(tt => tt.StartsWith(_searchQuery, StringComparison.InvariantCultureIgnoreCase)))
-                || musicRecord.Artists.Any(a => a.Name.Contains(_searchQuery, StringComparison.InvariantCultureIgnoreCase)
-                || musicRecord.Label.Name.Contains(_searchQuery, StringComparison.InvariantCultureIgnoreCase));
+                musicRecord.Title.Contains(_searchQuery, CatalogConstants.IGNORE_CASE)
+                || musicRecord.Tracklist.Any(t => t.Title.Split().Any(tt => tt.StartsWith(_searchQuery, CatalogConstants.IGNORE_CASE)));
         }
     }
 }

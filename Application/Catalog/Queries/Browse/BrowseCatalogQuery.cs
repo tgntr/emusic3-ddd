@@ -5,7 +5,7 @@
     using SimpleMusicStore.Application.Common.Pagination;
     using SimpleMusicStore.Application.Common.Sorting;
     using SimpleMusicStore.Domain.Catalog.Models;
-    using SimpleMusicStore.Domain.Catalog.Specifications;
+    using SimpleMusicStore.Domain.Catalog.Specifications.Browse;
     using SimpleMusicStore.Domain.Common;
     using System;
     using System.Collections.Generic;
@@ -25,21 +25,15 @@
         public bool? OnlyAvailable { private get; set; }
         public MusicRecordSortType? SortBy { private get; set; }
         public OrderType? OrderBy { private get; set; }
-
-        Specification<MusicRecord> GetSpecifications()
-        {
-            return new MusicRecordByAudioFormatSpecification(Format)
+        internal Specification<MusicRecord> Specifications
+            => new MusicRecordByAudioFormatSpecification(Format)
                 .And(new MusicRecordByGenreSpecification(Genres, Styles))
                 .And(new MusicRecordByPriceRangeSpecification(MinPrice, MaxPrice))
                 .And(new MusicRecordByReleaseDateRangeSpecification(MinReleaseDate, MaxReleaseDate))
-                .And(new MusicRecordBySearchQuerySpecification(SearchQuery))
+                .And(new MusicRecordByBrowseSearchQuerySpecification(SearchQuery))
                 .And(new MusicRecordOnlyAvailableSpecification(OnlyAvailable));
-        }
-
-        MusicRecordSorter GetSorter()
-        {
-            return new MusicRecordSorter(SortBy, OrderBy, SearchQuery);
-        }
+        internal MusicRecordSorter Sorter
+            => new MusicRecordSorter(SortBy, OrderBy, SearchQuery);
 
         public class BrowseCatalogQueryHandler : IRequestHandler<BrowseCatalogQuery, IEnumerable<BrowseCatalogMusicRecordOutputModel>>
         {
@@ -56,8 +50,8 @@
                 CancellationToken cancellationToken)
             {
                 return await _inventoryQueryRepository.BrowseMusicRecords(
-                    request.GetSpecifications(),
-                    request.GetSorter(),
+                    request.Specifications,
+                    request.Sorter,
                     request.Page,
                     cancellationToken);
             }
