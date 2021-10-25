@@ -1,9 +1,10 @@
 ﻿namespace SimpleMusicStore.Domain.Catalog.Models
 {
     using Common;
-    using Common.Models;
     using SimpleMusicStore.Domain.Catalog.Events;
     using SimpleMusicStore.Domain.Catalog.Exceptions;
+    using SimpleMusicStore.Domain.Common;
+    using SimpleMusicStore.Domain.Common.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;

@@ -1,8 +1,9 @@
 ﻿namespace SimpleMusicStore.Domain.Catalog.Exceptions
 {
     using Common;
+    using SimpleMusicStore.Domain.Common;
 
-    public class InvalidArtistException : BaseDomainException
+    public class InvalidArtistException : ArtistLabelException
     {
         public InvalidArtistException()
         {
