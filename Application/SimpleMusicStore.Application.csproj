@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Domain\SimpleMusicStore.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Pagination\" />
+  </ItemGroup>
+
 </Project>
